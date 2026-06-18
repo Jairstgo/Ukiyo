@@ -18,9 +18,21 @@ if (empty($usuario) || empty($password)) {
 
 $sql = "SELECT * FROM usuarios WHERE usuario = ?";
 $stmt = mysqli_prepare($conn, $sql);
+
+// Si la tabla no existe o falla la preparación
+if (!$stmt) {
+    echo json_encode(['success' => false, 'mensaje' => 'Error interno del servidor.']);
+    exit();
+}
+
 mysqli_stmt_bind_param($stmt, 's', $usuario);
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
+
+if (!$resultado) {
+    echo json_encode(['success' => false, 'mensaje' => 'Error al consultar la base de datos.']);
+    exit();
+}
 
 if ($fila = mysqli_fetch_assoc($resultado)) {
     if (password_verify($password, $fila['password'])) {
