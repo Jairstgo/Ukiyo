@@ -1,0 +1,9 @@
+# Imágenes subidas por usuarios (no se guardan en git)
+uploads/platillos/*.jpg
+uploads/platillos/*.jpeg
+uploads/platillos/*.png
+uploads/platillos/*.webp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
